@@ -17,16 +17,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
-@Table(name="statut")
+@Table(name = "statut")
 
 @ApiModel(description = "Details about statut entity.")
 public class Statut {
@@ -34,11 +32,17 @@ public class Statut {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name="name", nullable = false, unique = true)
+
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "statut")
 	private Collection<Task> tasks;
+
+	@Override
+	public String toString() {
+		return "Statut [id=" + id + ", name=" + name + "]";
+	}
+
 }

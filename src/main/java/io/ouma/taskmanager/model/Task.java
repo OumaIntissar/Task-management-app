@@ -16,13 +16,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 
 @Entity
 @Table(name = "task")
@@ -47,4 +45,12 @@ public class Task {
 	@ManyToOne 
 	@JoinColumn(name="statut_id")
 	private Statut statut;
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", name=" + name + ", toDoDateTime=" + toDoDateTime + ", userID=" + user.getId() + ", statutID="
+				+ statut.getId() + "]";
+	}
+	
+	
 }

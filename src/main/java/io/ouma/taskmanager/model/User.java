@@ -17,13 +17,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 
 @Entity
 @Table(name = "user")
@@ -46,5 +45,12 @@ public class User {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	private Collection<Task> task;
+	private Collection<Task> tasks;
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+	}
+	
+	
 }
