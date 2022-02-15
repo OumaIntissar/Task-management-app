@@ -50,11 +50,15 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> getTaskByStatut(Long id) {
+		if (statutRepo.findById(id).isPresent()) {
 		return taskRepo.findByStatutId(id);
+	} else {
+		throw new NoSuchElementException("Cannot find statut with id = " + id);
+	}
 	}
 
 	@Override
-	public void addTask(Task task, Long userId) {
+	public void addTask(Long userId, Task task) {
 
 		if (userRepository.findById(userId).isPresent()) {
 			User user = userRepository.findById(userId).get();
