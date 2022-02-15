@@ -1,11 +1,11 @@
 package io.ouma.taskmanager.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.ouma.taskmanager.exception.UserNotFoundException;
 import io.ouma.taskmanager.model.User;
 import io.ouma.taskmanager.repository.UserRepository;
 
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 		if (userRepo.findById(id).isPresent()) {
 			return userRepo.findById(id).get();
 		} else {
-			throw new NoSuchElementException("Cannot find user with id = " + id);
+			throw new UserNotFoundException(id);
 		}
 
 	}
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
 			userRepo.save(user);
 
 		} else {
-			throw new NoSuchElementException("Cannot find user with id = " + idUserToUp);
+			throw new UserNotFoundException(idUserToUp);
 		}
 
 	}
@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
 		if (userRepo.findById(id).isPresent()) {
 			userRepo.deleteById(id);
 		} else {
-			throw new NoSuchElementException("Cannot find user with id = " + id);
+			throw new UserNotFoundException(id);
 		}
 
 	}
