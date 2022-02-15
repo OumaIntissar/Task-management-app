@@ -1,11 +1,13 @@
 package io.ouma.taskmanager.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.ouma.taskmanager.exception.StatutNotFoundException;
+import io.ouma.taskmanager.exception.TaskNotFoundException;
+import io.ouma.taskmanager.exception.UserNotFoundException;
 import io.ouma.taskmanager.model.Statut;
 import io.ouma.taskmanager.model.Task;
 import io.ouma.taskmanager.model.User;
@@ -35,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
 		if (taskRepo.findById(id).isPresent()) {
 			return taskRepo.findById(id).get();
 		} else {
-			throw new NoSuchElementException("Cannot find task with id = " + id);
+			throw new TaskNotFoundException(id);
 		}
 	}
 
@@ -44,7 +46,7 @@ public class TaskServiceImpl implements TaskService {
 		if (userRepository.findById(userId).isPresent()) {
 			return taskRepo.findByUserId(userId);
 		} else {
-			throw new NoSuchElementException("Cannot find user with id = " + userId);
+			throw new UserNotFoundException(userId);
 		}
 	}
 
@@ -53,7 +55,7 @@ public class TaskServiceImpl implements TaskService {
 		if (statutRepo.findById(id).isPresent()) {
 		return taskRepo.findByStatutId(id);
 	} else {
-		throw new NoSuchElementException("Cannot find statut with id = " + id);
+		throw new StatutNotFoundException(id);
 	}
 	}
 
@@ -64,7 +66,7 @@ public class TaskServiceImpl implements TaskService {
 			User user = userRepository.findById(userId).get();
 			task.setUser(user);
 		} else {
-			throw new NoSuchElementException("Cannot find user with id = " + userId);
+			throw new UserNotFoundException(userId);
 		}
 
 		// Default statut
@@ -98,7 +100,7 @@ public class TaskServiceImpl implements TaskService {
 
 			taskRepo.save(task);
 		} else {
-			throw new NoSuchElementException("Cannot find task with id = " + idTaskToUp);
+			throw new TaskNotFoundException(idTaskToUp);
 		}
 
 	}
@@ -109,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
 		if (taskRepo.findById(id).isPresent()) {
 			taskRepo.deleteById(id);
 		} else {
-			throw new NoSuchElementException("Cannot find task with id = " + id);
+			throw new TaskNotFoundException(id);
 		}
 	}
 
