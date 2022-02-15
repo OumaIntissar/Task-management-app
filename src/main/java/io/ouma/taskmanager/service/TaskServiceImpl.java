@@ -14,8 +14,10 @@ import io.ouma.taskmanager.model.User;
 import io.ouma.taskmanager.repository.StatutRepository;
 import io.ouma.taskmanager.repository.TaskRepository;
 import io.ouma.taskmanager.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class TaskServiceImpl implements TaskService {
 
 	@Autowired
@@ -29,12 +31,14 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> getTasks() {
+		log.trace("Get all tasks succeed");
 		return taskRepo.findAll();
 	}
 
 	@Override
 	public Task getTaskById(Long id) {
 		if (taskRepo.findById(id).isPresent()) {
+			log.trace("Get task with id = " + id + " succeed");
 			return taskRepo.findById(id).get();
 		} else {
 			throw new TaskNotFoundException(id);
@@ -44,6 +48,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> getTasksByUser(Long userId) {
 		if (userRepository.findById(userId).isPresent()) {
+			log.trace("Get tasks " + taskRepo.findByUserId(userId) + " of user " + userId + " succeed");
 			return taskRepo.findByUserId(userId);
 		} else {
 			throw new UserNotFoundException(userId);
@@ -53,10 +58,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> getTaskByStatut(Long id) {
 		if (statutRepo.findById(id).isPresent()) {
-		return taskRepo.findByStatutId(id);
-	} else {
-		throw new StatutNotFoundException(id);
-	}
+			log.trace("Get tasks " + taskRepo.findByUserId(id) + " with statut " + id + " succeed");
+			return taskRepo.findByStatutId(id);
+		} else {
+			throw new StatutNotFoundException(id);
+		}
 	}
 
 	@Override
@@ -65,22 +71,28 @@ public class TaskServiceImpl implements TaskService {
 		if (userRepository.findById(userId).isPresent()) {
 			User user = userRepository.findById(userId).get();
 			task.setUser(user);
+			log.trace("Affecting user with id = " + userId + " to new task  " + task + " succeed");
 		} else {
 			throw new UserNotFoundException(userId);
 		}
 
 		// Default statut
 		if (statutRepo.findByName("No Statut") == null) {
+			log.trace("Default statut doesn't exist");
 			Statut newStatut = new Statut();
 			newStatut.setName("No Statut");
 			statutRepo.save(newStatut);
+			log.trace("Creating default statut with name {No Statut} succeed");
 			task.setStatut(newStatut);
+			log.trace("Affecting default statut to new task " + task + " succeed");
 		} else {
 			Statut statut = statutRepo.findByName("No Statut");
 			task.setStatut(statut);
+			log.trace("Affecting default statut to new task " + task + " succeed");
 		}
 
 		taskRepo.save(task);
+		log.trace("Add new task " + task + " to user with id = " + userId + " succeed");
 
 	}
 
@@ -89,6 +101,7 @@ public class TaskServiceImpl implements TaskService {
 		// Check idTask exists
 		if (taskRepo.findById(idTaskToUp).isPresent()) {
 			Task task = taskRepo.findById(idTaskToUp).get();
+			log.trace("Updating existing "+task+" to " + updatedTask + " ...");
 			if (updatedTask.getName() != null)
 				task.setName(updatedTask.getName());
 			if (updatedTask.getStatut() != null)
@@ -99,6 +112,7 @@ public class TaskServiceImpl implements TaskService {
 				task.setUser(updatedTask.getUser());
 
 			taskRepo.save(task);
+			log.trace("Update task succeed");
 		} else {
 			throw new TaskNotFoundException(idTaskToUp);
 		}
@@ -110,6 +124,7 @@ public class TaskServiceImpl implements TaskService {
 
 		if (taskRepo.findById(id).isPresent()) {
 			taskRepo.deleteById(id);
+			log.trace("Delete task with id = " + id + " succeed ");
 		} else {
 			throw new TaskNotFoundException(id);
 		}
