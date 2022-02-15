@@ -16,9 +16,10 @@ import io.ouma.taskmanager.model.Statut;
 import io.ouma.taskmanager.model.Task;
 import io.ouma.taskmanager.service.StatutService;
 import io.ouma.taskmanager.service.TaskService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value = "/status")
+@RequestMapping(value = "/api/status")
 public class StatutController {
 
 	@Autowired
@@ -27,35 +28,40 @@ public class StatutController {
 	@Autowired
 	TaskService taskService;
 
+	@ApiOperation(value = "Finds all status.")
 	@GetMapping
 	public List<Statut> getAllSatuts() {
 		return statutService.getStatuts();
 	}
 
+	@ApiOperation(value = "Finds status by id.")
 	@GetMapping("/{id}")
-	public Statut getSTatutById(@PathVariable Long id) {
-		return statutService.getStatutById(id);
+	public Statut getSTatutById(@PathVariable("id") Long statutId) {
+		return statutService.getStatutById(statutId);
 	}
 
-	
+	@ApiOperation(value = "Finds tasks by statut id.")
 	@GetMapping("/{id}/tasks")
-	public List<Task> getTasksBySatut(@PathVariable Long id) {
-		return taskService.getTaskByStatut(id);
+	public List<Task> getTasksBySatut(@PathVariable("id") Long statutId) {
+		return taskService.getTaskByStatut(statutId);
 	}
 
+	@ApiOperation(value = "Add new statut.")
 	@PostMapping
 	public void addStatut(@RequestBody Statut newStatut) {
 		statutService.addStatut(newStatut);
 	}
 	
+	@ApiOperation(value = "Delete statut by id.")
 	@DeleteMapping("/{id}")
-	public void deleteStatut(@PathVariable Long id) {
-		statutService.deleteStatut(id);
+	public void deleteStatut(@PathVariable("id") Long statutId) {
+		statutService.deleteStatut(statutId);
 	}
 	
+	@ApiOperation(value = "Update existed statut.")
 	@PutMapping("/{id}")
-	public void updateStatut(@PathVariable Long id, @RequestBody Statut statut) {
-		statutService.updatedStatut(statut, id);
+	public void updateStatut(@PathVariable("id") Long statutId, @RequestBody Statut updatedStatut) {
+		statutService.updatedStatut(updatedStatut, statutId);
 	}
 
 }
