@@ -13,7 +13,7 @@ public interface TaskService {
 
 	public List<Task> getTaskByStatut(Long id);
 
-	public void addTask(Task task, Long userId);
+	public void addTask(Long userId, Task task);
 
 	public void updateTask(Task updatedTask, Long idTaskToUp);
 
