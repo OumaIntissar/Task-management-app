@@ -1,11 +1,11 @@
 package io.ouma.taskmanager.service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.ouma.taskmanager.exception.StatutNotFoundException;
 import io.ouma.taskmanager.model.Statut;
 import io.ouma.taskmanager.repository.StatutRepository;
 
@@ -25,7 +25,7 @@ public class StatutServiceImpl implements StatutService {
 		if (statutRepo.findById(id).isPresent())
 			return statutRepo.findById(id).get();
 		else {
-			throw new NoSuchElementException("Cannot find statut with id = " + id);
+			throw new StatutNotFoundException(id);
 		}
 	}
 
@@ -50,7 +50,7 @@ public class StatutServiceImpl implements StatutService {
 			statutRepo.save(statut);
 
 		} else {
-			throw new NoSuchElementException("Cannot find statut with id = " + id);
+			throw new StatutNotFoundException(id);
 		}
 
 	}
@@ -61,7 +61,7 @@ public class StatutServiceImpl implements StatutService {
 		if (statutRepo.findById(id).isPresent()) {
 			statutRepo.deleteById(id);
 		} else {
-			throw new NoSuchElementException("Cannot find statut with id = " + id);
+			throw new StatutNotFoundException(id);
 		}
 
 	}
