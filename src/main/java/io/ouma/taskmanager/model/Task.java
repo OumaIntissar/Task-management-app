@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "task")
+
+@ApiModel(description = "Details about task entity.")
 public class Task {
 
 	@Id

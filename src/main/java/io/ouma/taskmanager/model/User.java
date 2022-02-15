@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,8 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "user")
+
+@ApiModel(description = "Details about user entity.")
 public class User {
 
 	@Id
