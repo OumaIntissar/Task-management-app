@@ -16,6 +16,7 @@ class StatutRepositoryTest {
     @Autowired
     private StatutRepository statutRepository;
     private Statut underTest;
+    private Statut expectedStatut;
 
     @BeforeEach
     void setUp() {
@@ -32,8 +33,9 @@ class StatutRepositoryTest {
 
         underTest.setName("Open");
         statutRepository.save(underTest);
-
-        assertThat(underTest).isEqualTo(statutRepository.findByName("Open"));
+        
+        expectedStatut = statutRepository.findByName("Open");
+        assertThat(expectedStatut).isEqualTo(underTest);
 
     }
 }
