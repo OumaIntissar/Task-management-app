@@ -17,6 +17,9 @@ public class StatutServiceImpl implements StatutService {
 	@Autowired
 	StatutRepository statutRepo;
 
+	public StatutServiceImpl(StatutRepository statutRepository) {
+	}
+
 	@Override
 	public List<Statut> getStatuts() {
 		log.trace("Getting all status");
@@ -66,7 +69,7 @@ public class StatutServiceImpl implements StatutService {
 		
 		if (statutRepo.findById(id).isPresent()) {
 			statutRepo.deleteById(id);
-			log.trace("Delete statut with "+id+" succeed");
+			log.trace("Delete statut with id = "+id+" succeed");
 		} else {
 			throw new StatutNotFoundException(id);
 		}
