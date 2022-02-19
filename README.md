@@ -13,6 +13,7 @@ The main feature of this application is to manage my personnal tasks.
 ## Demo
 
 I documented this API using swagger, as shown bellow.
+
 NB : You can access this interface via http://localhost:8080/swagger-ui/ after running the project locally.
 
 - API endpoints overview
