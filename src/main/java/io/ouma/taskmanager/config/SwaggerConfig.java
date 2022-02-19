@@ -31,7 +31,7 @@ public class SwaggerConfig {
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Task Manager App API",
 				"An API documentation for Task Manager App, an application for managging and organising personnal tasks.",
-				"1.0", "https://github.com/OumaIntissar/Task-management-app/blob/main/README.md",
+				"Beta", "https://github.com/OumaIntissar/Task-management-app/blob/main/README.md",
 				new Contact("Oumaiyma INTISSAR", "https://www.linkedin.com/in/ointissar/", "oumaintissar@gmail.com"),
 				"License of API", "https://github.com/OumaIntissar/Task-management-app/blob/main/README.md",
 				Collections.emptyList());
