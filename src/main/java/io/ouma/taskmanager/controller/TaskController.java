@@ -3,13 +3,7 @@ package io.ouma.taskmanager.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.ouma.taskmanager.model.Task;
 import io.ouma.taskmanager.service.TaskService;
@@ -19,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/tasks")
 @Slf4j
+@CrossOrigin(origins = "http://localhost:4200/")
 public class TaskController {
 
 	@Autowired
