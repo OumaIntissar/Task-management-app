@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.ouma.taskmanager.exception.StatutNotFoundException;
 import io.ouma.taskmanager.exception.TaskNotFoundException;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@Transactional
 public class TaskServiceImpl implements TaskService {
 
 	@Autowired
@@ -67,11 +69,11 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void addTask(Long userId, Task task) {
-
+		log.trace("Add Task ........");
 		if (userRepository.findById(userId).isPresent()) {
 			User user = userRepository.findById(userId).get();
 			task.setUser(user);
-			log.trace("Affecting user with id = " + userId + " to new task  " + task + " succeed");
+			log.trace("Affecting user with id = " + userId + " to new task '" + task.getName() + "' succeed");
 		} else {
 			throw new UserNotFoundException(userId);
 		}
