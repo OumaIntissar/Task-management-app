@@ -2,6 +2,7 @@ package io.ouma.taskmanager.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Statut {
 	private String name;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "statut")
+	@OneToMany(mappedBy = "statut", cascade = CascadeType.ALL)
 	private Collection<Task> tasks;
 
 	@Override
