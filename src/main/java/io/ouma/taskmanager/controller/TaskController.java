@@ -46,4 +46,11 @@ public class TaskController {
 		log.trace("Entred put /api/tasks/id endpoint");
 		taskService.updateTask(updatedTask, taskId);
 	}
+	
+	@ApiOperation(value = "Update statut for existed task.")
+	@PutMapping("/{taskId}/changeStatut")
+	public void updateStatutTask(@PathVariable("taskId") Long taskId, @RequestBody Long statutId) {
+		log.trace("Entred put /api/tasks/id endpoint");
+		taskService.updateTaskStatut(statutId, taskId);
+	}
 }
