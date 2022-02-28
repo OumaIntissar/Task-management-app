@@ -53,7 +53,7 @@ In order to run this project locally, you must :
 
 Please find via this link the front-end part made with Angular
 
-[Task Manager Front-end](https://github.com/OumaIntissar/Task-management-front-end)
+[Task Manager Front-end](https://github.com/OumaIntissar/Task-management-app-fe)
 
 
 ## Feedback
