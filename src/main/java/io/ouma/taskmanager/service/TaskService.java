@@ -17,5 +17,7 @@ public interface TaskService {
 
 	public void updateTask(Task updatedTask, Long idTaskToUp);
 
+	public void updateTaskStatut(Long statutId, Long idTaskToUp);
+
 	public void deleteTask(Long id);
 }

@@ -50,7 +50,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<Task> getTasksByUser(Long userId) {
 		if (userRepository.findById(userId).isPresent()) {
-			log.trace("Get tasks " + taskRepo.findByUserId(userId) + " of user " + userId + " succeed");
+			log.trace("Get tasks of user " + userId + " succeed");
 			return taskRepo.findByUserId(userId);
 		} else {
 			throw new UserNotFoundException(userId);
@@ -79,16 +79,16 @@ public class TaskServiceImpl implements TaskService {
 		}
 
 		// Default statut
-		if (statutRepo.findByName("No Statut") == null) {
+		if (statutRepo.findByName("Not started") == null) {
 			log.trace("Default statut doesn't exist");
 			Statut newStatut = new Statut();
-			newStatut.setName("No Statut");
+			newStatut.setName("Not started");
 			statutRepo.save(newStatut);
-			log.trace("Creating default statut with name {No Statut} succeed");
+			log.trace("Creating default statut with name {Not started} succeed");
 			task.setStatut(newStatut);
 			log.trace("Affecting default statut to new task " + task + " succeed");
 		} else {
-			Statut statut = statutRepo.findByName("No Statut");
+			Statut statut = statutRepo.findByName("Not started");
 			task.setStatut(statut);
 			log.trace("Affecting default statut to new task " + task + " succeed");
 		}
@@ -103,7 +103,7 @@ public class TaskServiceImpl implements TaskService {
 		// Check idTask exists
 		if (taskRepo.findById(idTaskToUp).isPresent()) {
 			Task task = taskRepo.findById(idTaskToUp).get();
-			log.trace("Updating existing "+task+" to " + updatedTask + " ...");
+			log.trace("Updating existing task");
 			if (updatedTask.getName() != null)
 				task.setName(updatedTask.getName());
 			if (updatedTask.getStatut() != null)
@@ -130,6 +130,24 @@ public class TaskServiceImpl implements TaskService {
 		} else {
 			throw new TaskNotFoundException(id);
 		}
+	}
+
+	@Override
+	public void updateTaskStatut(Long statutId, Long idTaskToUp) {
+		// Check idTask exists
+		if (taskRepo.findById(idTaskToUp).isPresent()) {
+			log.trace("Updating Statut for existing task");
+			Task task = taskRepo.findById(idTaskToUp).get();
+			Statut statut = statutRepo.findById(statutId).get();
+			
+			task.setStatut(statut);
+
+			taskRepo.save(task);
+			log.trace("Update statut for task succeed");
+		} else {
+			throw new TaskNotFoundException(idTaskToUp);
+		}
+
 	}
 
 }
